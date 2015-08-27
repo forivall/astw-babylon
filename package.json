@@ -1,10 +1,10 @@
 {
-  "name": "astw",
-  "version": "2.0.0",
+  "name": "astw-babylon",
+  "version": "1.0.0",
   "description": "walk the ast with references to parent nodes",
   "main": "index.js",
   "dependencies": {
-    "acorn": "^1.0.3"
+    "babylon": "^5.8.23"
   },
   "devDependencies": {
     "tape": "~2.4.1",
@@ -27,19 +27,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/substack/astw.git"
+    "url": "git://github.com/forivall/astw-babylon.git"
   },
-  "homepage": "https://github.com/substack/astw",
+  "homepage": "https://github.com/forivall/astw-babylon",
   "keywords": [
     "ast",
     "walk",
     "source",
-    "acorn"
+    "babylon"
   ],
   "author": {
-    "name": "James Halliday",
-    "email": "mail@substack.net",
-    "url": "http://substack.net"
+    "name": "Jordan Klassen",
+    "email": "forivall@gmail.com"
   },
   "license": "MIT"
 }

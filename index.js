@@ -1,13 +1,25 @@
-var parse = require('acorn').parse;
+var parse = require('babylon').parse;
 
-module.exports = function (src) {
+module.exports = function (src, opts) {
     var ast = src;
     if (typeof src === 'string') {
+        var parseOpts = objectAssign({
+            allowImportExportEverywhere: true,
+            allowReturnOutsideFunction: true,
+            allowHashBang: true,
+            ecmaVersion: 6,
+            strictMode: false,
+            sourceType: 'module',
+            locations: true,
+            features: {},
+            plugins: {
+                jsx: true,
+                flow: true
+            }
+        }, opts || {});
+
         try {
-            ast = parse(src, {
-                ecmaVersion: 6,
-                allowReturnOutsideFunction: true
-            })
+            ast = parse(src, parseOpts);
         }
         catch (err) { ast = parse('(' + src + ')') }
     }
@@ -21,7 +33,7 @@ function walk (node, parent, cb) {
     for (var i = 0; i < keys.length; i++) {
         var key = keys[i];
         if (key === 'parent') continue;
-        
+
         var child = node[key];
         if (isArray(child)) {
             for (var j = 0; j < child.length; j++) {
@@ -49,3 +61,12 @@ var objectKeys = Object.keys || function (obj) {
     for (var key in obj) keys.push(key);
     return keys;
 };
+
+var objectAssign = Object.assign || function (obj, source) {
+    var keys = objectKeys(source);
+    for (var i = 0, len = keys.length; i < len; i++) {
+        var key = keys[i];
+        obj[key] = source[key];
+    }
+    return obj;
+}
